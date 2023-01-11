@@ -10,6 +10,7 @@ const app = express();
 const db = require('./db');
 
 const users = require('./routes/users');
+const friends = require('./routes/friends');
 
 function read(file) {
   return new Promise((resolve, reject) => {
@@ -29,9 +30,10 @@ function read(file) {
 module.exports = (ENV) => {
   app.use(cors());
   app.use(helmet());
-  app.use(express.json);
+  app.use(express.json());
 
   app.use('/api', users(db));
+  app.use('/api', friends(db));
 
 
   if (ENV === 'development') {
@@ -46,7 +48,7 @@ module.exports = (ENV) => {
             .then(() => {
               console.log('Database Reset');
               response.status(200).send('Database Reset');
-          });
+            });
         });
       })
       .catch(error => {
