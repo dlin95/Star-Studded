@@ -8,7 +8,7 @@ module.exports = (db) => {
     db.query(`SELECT * FROM watchlist WHERE id = ${id}`)
       .then((result) => {
         console.log('Watchlist displayed');
-        res.send(result.rows);
+        res.json(result.rows[0]);
       })
       .catch((err) => {
         console.log('Error', err);
@@ -22,7 +22,7 @@ module.exports = (db) => {
     db.query(`INSERT INTO watchlist (user_id, movie_id) VALUES (${user_id}, ${movie_id})`)
       .then((result) => {
         console.log('New movie successfully added to Watchlist');
-        res.json(result.rows);
+        res.json(result.rows[0]);
       })
       .catch((err) => {
         console.log('Error', err);
@@ -35,7 +35,7 @@ module.exports = (db) => {
     db.query(`DELETE FROM watchlist WHERE movie_id = ${movie_id}`)
       .then((result) => {
         console.log('Movie successfully deleted from Watchlist');
-        res.json(result.rows);
+        res.json(result.rows[0]);
       })
       .catch((err) => {
         console.log('Error', err);

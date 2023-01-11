@@ -5,7 +5,7 @@ module.exports = (db) => {
     db.query(
       `SELECT id, first_name, last_name, email, profile_photo_url FROM users`
     ).then((result) => {
-      res.send(result.rows);
+      res.json(result.rows);
     })
       .catch(error => console.log(error));
 
@@ -16,7 +16,7 @@ module.exports = (db) => {
     const queryString = `SELECT * FROM users WHERE id = $1`;
     const queryParams = [user_id];
     db.query(queryString, queryParams).then((result) => {
-      res.send(result.rows);
+      res.json(result.rows);
     })
       .catch(error => console.log(error));
 

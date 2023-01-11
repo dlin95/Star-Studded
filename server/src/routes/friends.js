@@ -8,7 +8,7 @@ module.exports = (db) => {
     JOIN users ON friends.friend_user_id = users.id`;
     queryParams = [user_id];
     db.query(queryString, queryParams).then((result) => {
-      res.send(result.rows);
+      res.json(result.rows);
     })
       .catch(error => console.log(error));
   });
@@ -16,7 +16,7 @@ module.exports = (db) => {
   router.get('/friends/search', (req, res) => {
     queryString = `SELECT id, first_name, last_name FROM users`;
     db.query(queryString).then((result) => {
-      res.send(result.rows);
+      res.json(result.rows);
     })
       .catch(error => console.log(error));
   });
