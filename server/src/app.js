@@ -29,7 +29,7 @@ function read(file) {
 module.exports = (ENV) => {
   app.use(cors());
   app.use(helmet());
-  app.use(express.json);
+  app.use(express.json());
 
   app.use('/api', users(db));
 
@@ -46,7 +46,7 @@ module.exports = (ENV) => {
             .then(() => {
               console.log('Database Reset');
               response.status(200).send('Database Reset');
-          });
+            });
         });
       })
       .catch(error => {
