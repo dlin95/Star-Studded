@@ -32,6 +32,9 @@ module.exports = (ENV) => {
   app.use(express.json);
 
   app.use('/api', users(db));
+  app.use('/api', friends(db));
+  app.use('/api', favourite_movies(db));
+  app.use('/api', watchlist(db));
 
 
   if (ENV === 'development') {
