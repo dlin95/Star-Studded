@@ -10,6 +10,7 @@ const app = express();
 const db = require('./db');
 
 const users = require('./routes/users');
+const friends = require('./routes/friends');
 
 function read(file) {
   return new Promise((resolve, reject) => {
@@ -32,6 +33,7 @@ module.exports = (ENV) => {
   app.use(express.json());
 
   app.use('/api', users(db));
+  app.use('/api', friends(db));
 
 
   if (ENV === 'development') {
