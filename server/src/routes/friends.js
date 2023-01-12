@@ -8,7 +8,7 @@ module.exports = (db) => {
     JOIN users ON friends.friend_user_id = users.id`;
     queryParams = [user_id];
     db.query(queryString, queryParams).then((result) => {
-      res.json(result.rows);
+      res.json(result.rows[0]);
     })
       .catch(error => console.log(error));
   });
@@ -16,7 +16,7 @@ module.exports = (db) => {
   router.get('/friends/search', (req, res) => {
     queryString = `SELECT id, first_name, last_name FROM users`;
     db.query(queryString).then((result) => {
-      res.json(result.rows);
+      res.json(result.rows[0]);
     })
       .catch(error => console.log(error));
   });
@@ -27,7 +27,7 @@ module.exports = (db) => {
     VALUES ($1, $2) RETURNING *;`;
     const queryParams = [new_friend.user_id, new_friend.frien_user_id];
     db.query(queryString, queryParams).then((result) => {
-      res.json(result.rows);
+      res.json(result.rows[0]);
     })
       .catch(error => console.log(error));
   });
@@ -38,7 +38,7 @@ module.exports = (db) => {
     WHERE friend_user_id = $3 RETURNING *;`;
     const queryParams = [new_friends.user_id, new_friends.friend_user_id, Number(request.params.id)];
     db.query(queryString, queryParams).then((result) => {
-      res.json(result.rows);
+      res.json(result.rows[0]);
     })
       .catch(error => console.log(error));
 
@@ -48,7 +48,7 @@ module.exports = (db) => {
     const queryString = `DELETE FROM friends WHERE friend_user_id = $1::integer`;
     const queryParams = [Number(request.params.id)];
     db.query(queryString, queryParams).then((result) => {
-      res.json(result.rows);
+      res.json(result.rows[0]);
     })
       .catch(error => console.log(error));
 
