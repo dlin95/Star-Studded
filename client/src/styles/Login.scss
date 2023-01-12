@@ -1,0 +1,38 @@
+.card-container.card {
+  min-width: 400px;
+  min-height: 50%;
+  height: auto;
+  z-index: 1;
+  padding: 40px 40px;
+  background-color: rgb(34, 32, 32);
+  color: white;
+}
+
+.profile-name-card {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.btn-signin,
+.btn-signup {
+  width: 100%;
+  background-color: rgb(186, 7, 7);
+  color: white;
+  padding: 12px;
+}
+
+.signup-link {
+  color: rgb(186, 7, 7);
+}
+
+.form-control {
+  padding: 12px;
+}
+
+.btn-float {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  border-radius: 20px;
+  min-width: auto;
+}
