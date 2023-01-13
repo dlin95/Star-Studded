@@ -50,7 +50,7 @@ class moviesList extends Component {
           />
           <div className='movie-grid'>
             <FourColumnGrid 
-              header={this.state.searchTerm ? 'Search Result' : 'Trending Movies'}
+              header={this.state.searchTerm ? 'Search Result' : 'All Movies'}
               loading={this.state.loading}
               >
                 {this.state.movies.map((element, i) => {
