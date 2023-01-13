@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import FriendsSuggestions from './pages/FriendsSuggestions';
 import MovieDetail from './pages/MovieDetail';
-import MoviesList from './pages/MoviesList';
+import MoviesList from './components/MoviesList/MoviesList';
 import WatchList from './pages/WatchList';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -23,7 +23,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/friend-suggestion' element={<FriendsSuggestions />} />
         <Route path='/movie-detail' element={<MovieDetail />} />
-        <Route path='/movie-list' element={<MoviesList />} />
+        <Route path='/movies-list' element={<MoviesList />} />
         <Route path='/watch-list' element={<WatchList />} />
         <Route path="*" element={< ErrorPage />}>
         </Route>

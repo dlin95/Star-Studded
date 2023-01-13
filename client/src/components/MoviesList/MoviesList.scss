@@ -1,0 +1,36 @@
+.main h1 {
+  font-size: 4em;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  color: white;
+  background: black;
+  overflow: hidden;
+  position: relative;
+}
+
+.mainBackground {
+  object-fit: cover;
+  opacity: 0.4;
+  height: auto;
+  width: 100%;
+}
+
+.home {
+  margin-bottom: 100px;
+  position: absolute;
+}
+
+.movie-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  margin-top: 1500px;
+  padding: 0 20px;
+  position: absolute;
+}
