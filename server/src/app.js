@@ -9,8 +9,12 @@ const app = express();
 
 const db = require('./db');
 
-const users = require('./routes/users');
+const favouriteMovies = require('./routes/favouriteMovies')
 const friends = require('./routes/friends');
+const login = require('./routes/login');
+const register = require('./routes/register');
+const users = require('./routes/users');
+const watchlist = require('./routes/watchlist');
 
 function read(file) {
   return new Promise((resolve, reject) => {
@@ -32,9 +36,11 @@ module.exports = (ENV) => {
   app.use(helmet());
   app.use(express.json());
 
-  app.use('/api', users(db));
   app.use('/api', friends(db));
-  app.use('/api', favourite_movies(db));
+  app.use('/api', login(db));
+  app.use('/api', favouriteMovies(db));
+  app.use('/api', register(db));
+  app.use('/api', users(db));
   app.use('/api', watchlist(db));
 
 
