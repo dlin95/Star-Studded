@@ -1,30 +1,31 @@
-.main h1 {
-  font-size: 4em;
-}
+// .main h1 {
+//   font-size: 4em;
+// }
 
-.main-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  text-align: center;
-  color: white;
-  background: black;
-  overflow: hidden;
-  position: relative;
-}
+// .main-container {
+//   display: flex;
+//   justify-content: center;
+//   flex-direction: column;
+//   align-items: center;
+//   min-height: 100vh;
+//   text-align: center;
+//   color: white;
+//   background: black;
+//   overflow: visible;
+//   position: relative;
+//   background-repeat: repeat-y;
+// }
 
-.mainBackground {
-  object-fit: cover;
-  opacity: 0.4;
-  height: auto;
-  width: 100%;
-}
+// .mainBackground {
+//   object-fit: cover;
+//   opacity: 0.4;
+//   height: auto;
+//   width: 100%;
+// }
 
 .home {
   margin-bottom: 100px;
-  position: absolute;
+  // position: absolute;
 }
 
 .movie-grid {
@@ -32,5 +33,5 @@
   margin: 0 auto;
   margin-top: 1500px;
   padding: 0 20px;
-  position: absolute;
+  // position: absolute;
 }

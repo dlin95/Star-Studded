@@ -5,7 +5,7 @@ const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/';
 
 const BACKDROP_SIZE = 'w1280';
 
-const POSTER_SIZE = 'w500';
+const POSTER_SIZE = 'w300';
 
 export {
   API_URL,
