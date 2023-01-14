@@ -15,14 +15,14 @@ class moviesList extends Component {
     currentPage: 0,
     totalPages: 0,
     searchTerm: ''
-  }
+  };
 
   componentDidMount() {
     if (localStorage.getItem('homeState')) {
       const state = JSON.parse(localStorage.getItem('homeState'));
-      this.setState({...state});
+      this.setState({ ...state });
     } else {
-      this.setState({loading: true});
+      this.setState({ loading: true });
       const endPoint = `${API_URL}trending/movie/week?api_key=${API_KEY}`;
       this.fetchItems(endPoint);
     }
@@ -48,12 +48,12 @@ class moviesList extends Component {
           movies: [...this.state.movies, ...result.results],
           loading: false
         }, () => {
-          if(this.state.searchTerm === ''){
-            localStorage.setItem('homeState', JSON.stringify(this.state))
+          if (this.state.searchTerm === '') {
+            localStorage.setItem('homeState', JSON.stringify(this.state));
           }
-        })
-      })
-  }
+        });
+      });
+  };
 
   render() {
     return (

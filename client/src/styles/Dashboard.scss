@@ -1,0 +1,57 @@
+h3 {
+  color: rgb(186, 7, 7);
+  font-weight: bold;
+}
+.card {
+  width: 200px;
+  min-width: 180px;
+  border-color: #842029;
+}
+
+.card-body {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 8px;
+  background-color: #212529;
+}
+.card-title {
+  margin-top: 5px;
+  font-size: 1em;
+  font-weight: bold;
+}
+.btn-light {
+  background: hsla(0, 0%, 100%, 0.08);
+  min-width: 120px;
+  border-color: hsla(0, 0%, 100%, 0.08);
+  color: #5799ef;
+  font-weight: 500;
+}
+
+.heading {
+  font-size: 24px;
+  color: rgb(186, 7, 7);
+
+  a {
+    color: rgb(186, 7, 7);
+    text-decoration: none;
+  }
+}
+.movielistContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow: scroll;
+  gap: 25px;
+}
+
+.badge {
+  width: fit-content;
+}
+
+// .fa-heart {
+//   position: absolute;
+//   top: 20px;
+//   right: 10px;
+// }

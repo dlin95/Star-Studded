@@ -1,6 +1,11 @@
 .App {
   text-align: center;
-  background-image: url("./../public/background.jpeg");
+  background-color: black;
+  overflow: hidden;
+  background: #c33764; /* fallback colour. Make sure this is just one solid colour. */
+  background: -webkit-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url("./../public/background.jpeg");
+
   min-height: 100vh;
   color: rgb(212, 91, 91);
 }
