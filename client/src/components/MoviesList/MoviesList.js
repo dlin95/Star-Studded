@@ -3,6 +3,7 @@ import { API_KEY, API_URL, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from '..
 import FourColumnGrid from '../elements/FourColumnGrid/FourColumnGrid';
 import MovieThumbnail from '../elements/MovieThumbnail/MovieThumbnail';
 import ShowMoreBtn from '../elements/ShowMoreBtn/ShowMoreBtn';
+import Navbar from '../elements/Navbar/Navbar';
 // import { Link } from 'react-router-dom';
 import './MoviesList.scss';
 
@@ -58,6 +59,7 @@ class moviesList extends Component {
   render() {
     return (
       <div className='home'>
+        <Navbar />
         <div className='movie-grid'>
           <FourColumnGrid 
             header={this.state.searchTerm ? 'Search Result' : 'All Movies'}
