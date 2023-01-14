@@ -1,6 +1,6 @@
 import React from "react";
 
-import Movie from "./Movie";
+import Movie from "./Movie/Movie";
 
 export default function Results(props) {
   const { results } = props;

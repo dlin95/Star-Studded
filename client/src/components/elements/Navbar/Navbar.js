@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './navbar.scss';
 import axios from "axios";
-import Results from "./Results";
+import Results from "../Results";
 
 
 const Navbar = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import classnames from "classnames";
-import './movie.scss';
+import './Movie.scss';
 
 
 export default function Movie(props) {

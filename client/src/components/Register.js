@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "../styles/Login.scss";
+import ".././components/Login/Login.scss";
 
 const Register = () => {
   return (
