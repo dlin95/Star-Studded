@@ -1,19 +1,21 @@
+$brightRed:rgb(186, 7, 7);
+
 h2 {
-  color: rgb(186, 7, 7);
+  color: $brightRed;
   font-weight: bold;
 }
 h5 {
-  color: rgb(186, 7, 7);
+  color: $brightRed;
   font-weight: bold;
 }
 
-p {
-  color: rgb(186, 7, 7);
- 
+.card-descript {
+  color: $brightRed;
 }
 
-small {
-  color: rgb(186, 7, 7);
+.card-tagline{
+  color: $brightRed;
+  font-style: italic;
 }
 
 .bigcard {
@@ -22,7 +24,7 @@ small {
   justify-content: center;
 }
 .card {
-  width: 550px;
+  width: 500px;
   min-width: 180px;
   border-color: #842029;
   
@@ -39,7 +41,7 @@ small {
   margin-top: 5px;
   font-size: 2em;
   font-weight: bold;
-  color: rgb(186, 7, 7);
+  color: $brightRed;
 }
 .btn-light {
   background: hsla(0, 0%, 100%, 0.08);
