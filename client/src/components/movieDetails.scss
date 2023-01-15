@@ -1,0 +1,69 @@
+h2 {
+  color: rgb(186, 7, 7);
+  font-weight: bold;
+}
+
+h3 {
+  color: rgb(186, 7, 7);
+  font-weight: bold;
+}
+
+h4 {
+  color: rgb(186, 7, 7);
+  font-weight: bold;
+}
+h5 {
+  color: rgb(186, 7, 7);
+  font-weight: bold;
+}
+
+h6 {
+  color: rgb(186, 7, 7);
+ 
+}
+
+small {
+  color: rgb(186, 7, 7);
+}
+
+.bigcard {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.card {
+  width: 450px;
+  min-width: 180px;
+  border-color: #842029;
+  
+}
+.card-body {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 8px;
+  background-color: #212529;
+}
+.card-title {
+  margin-top: 5px;
+  font-size: 1em;
+  font-weight: bold;
+}
+.btn-light {
+  background: hsla(0, 0%, 100%, 0.08);
+  min-width: 120px;
+  border-color: hsla(0, 0%, 100%, 0.08);
+  color: #5799ef;
+  font-weight: 500;
+}
+
+.badge {
+  width: fit-content;
+}
+
+// .fa-heart {
+//   position: absolute;
+//   top: 20px;
+//   right: 10px;
+// }
