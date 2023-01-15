@@ -1,0 +1,19 @@
+.showmorebtn {
+  background: #d32d3b;
+  width: 100%;
+  min-height: 50px;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.showmorebtn p {
+  font-family: 'Abel', sans-serif;
+  font-size:42px;
+  padding: 20px;
+}
+
+.showmorebtn:hover {
+  opacity: 0.8;
+}
