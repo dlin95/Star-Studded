@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./movieDetails.scss";
 import Navbar from "./Navbar";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { API_URL, API_KEY } from "../config.js";
+import { fetchData } from "../utils/fetchData";
 
-const MovieDetails = (props) => {
+const MovieDetails = () => {
+  const [state, setState] = useState({
+    movie: {},
+    loading: false,
+    value: "",
+  });
   const handleAddToWatchList = async function (e, movie_id) {
     e.preventDefault();
     const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
@@ -24,12 +31,26 @@ const MovieDetails = (props) => {
       });
   };
 
-  props = props.movie;
+  // how to get movie_id???
+  const movie_id = 361743;
+ 
+  useEffect(() => {
+    const getMovieDetails = async () => {
+      setState({ loading: true });
+      const query = `${API_URL}movie/${movie_id}?api_key=${API_KEY}`;
+      const res = await fetchData(query);
+      const movie = res;
+      setState({ movie, loading: false });
+    };
+    getMovieDetails();
+  }, []);
+
+  const props = state.movie;
 
   const imageUrl = "https://image.tmdb.org/t/p/w500/" + props.poster_path;
 
   console.log(props);
-  console.log("hi there");
+
   return (
     <>
       <Navbar />
@@ -43,8 +64,8 @@ const MovieDetails = (props) => {
               Runtime: {props.runtime} minutes
             </h5>
             <h5 className="card-descript tagline">"{props.tagline}"</h5>
-            {/* {props.genres.name.map((genre) => (
-              <p className="card-descript genre" key={genre}>
+            {/* {props.genres.name.map((genre, index) => (
+              <p className="card-descript genre" key={index}>
                 {genre}
               </p>
             ))} */}

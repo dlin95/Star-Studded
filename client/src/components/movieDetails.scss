@@ -19,11 +19,14 @@ h5 {
 }
 
 .bigcard {
+  
+  padding: 15px;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 .card {
+  
   width: 500px;
   min-width: 180px;
   border-color: #842029;
