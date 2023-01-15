@@ -6,12 +6,16 @@ import { toast } from "react-toastify";
 import { API_URL, API_KEY } from "../config.js";
 import { fetchData } from "../utils/fetchData";
 
+// ste this as state= localStorage.getItem(props.match.params.movie_id)
+// set endpoint to movie
+// similar to what darren does in movie list
 const MovieDetails = () => {
   const [state, setState] = useState({
-    movie: {},
+    movieId: null,
     loading: false,
     value: "",
   });
+
   const handleAddToWatchList = async function (e, movie_id) {
     e.preventDefault();
     const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
@@ -31,19 +35,44 @@ const MovieDetails = () => {
       });
   };
 
-  // how to get movie_id???
-  const movie_id = 361743;
- 
+  // how to get movie_id??? --> in url
+  // const movieId = 361743;
+
   useEffect(() => {
     const getMovieDetails = async () => {
-      setState({ loading: true });
-      const query = `${API_URL}movie/${movie_id}?api_key=${API_KEY}`;
-      const res = await fetchData(query);
-      const movie = res;
-      setState({ movie, loading: false });
+      // setState({ loading: true });
+      // const query = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
+      // const res = await fetchData(query);
+      // const movie = res;
+      // setState({ movie, loading: false });
+      if (localStorage.getItem(`${this.props.match.params.movieId}`)) {
+        const state = JSON.parse(
+          localStorage.getItem(`${this.props.match.params.movieId}`)
+        );
+        this.setState({ ...state });
+      } else {
+        this.setState({ loading: true });
+        const user = JSON.parse(sessionStorage.getItem("currentUser"));
+        const endPoint = `${API_URL}movie/${this.props.match.params.movieId}?api_key=${API_KEY}`;
+        this.fetchItems(endPoint);
+      }
     };
     getMovieDetails();
   }, []);
+
+  const fetchItems = (endpoint) => {
+    fetch(endpoint)
+      .then((result) => result.json())
+      .then((result) => {
+        this.setState({ movie: result }, () => {
+          const endpoint = `${API_URL}movie/${this.props.match.params.movieId}/credits?api_key=${API_KEY}`;
+          fetch(endpoint);
+        });
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+  };
 
   const props = state.movie;
 
