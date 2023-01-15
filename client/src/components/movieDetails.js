@@ -43,11 +43,11 @@ const MovieDetails = (props) => {
               Runtime: {props.runtime} minutes
             </h5>
             <h5 className="card-descript tagline">"{props.tagline}"</h5>
-            {props.genres.map((genre) => (
+            {/* {props.genres.name.map((genre) => (
               <p className="card-descript genre" key={genre}>
                 {genre}
               </p>
-            ))}
+            ))} */}
             <div className="d-flex justify-content-between">
               <small className="card-descript release-date">
                 Release date: {props.release_date}
