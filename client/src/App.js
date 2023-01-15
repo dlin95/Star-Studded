@@ -12,7 +12,6 @@ import WatchList from './pages/Watchlist/Watchlist';
 import Login from './pages/Login/Login';
 import Register from './pages/Register';
 import Favourites from './pages/Favourites/Favourites'
-// import Register from './pages/Register';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
