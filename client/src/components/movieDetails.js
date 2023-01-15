@@ -11,16 +11,16 @@ const MovieDetails = (props) => {
       <div className="card">
         <img src={imageUrl} className="card-img-top" alt="..." />
         <div className="card-body">
-          <h3 className="card-title">{props.title}</h3>
-          <h6 className="card-overview">{props.overview}</h6>
-          <h3 className="card-runtime">Runtime: {props.runtime} minutes</h3>
+          <h2 className="card-title">{props.title}</h2>
+          <p className="card-overview">{props.overview}</p>
+          <h5 className="card-runtime">Runtime: {props.runtime} minutes</h5>
           <h5 className="card-tagline">"{props.tagline}"</h5>
-          <h6 className="card-homepage">{props.homepage}</h6>
-          <h3>Genres:</h3>
+          <p className="card-homepage">{props.homepage}</p>
+
           {props.genres.map((genre) => (
-            <h4 className="card-genre" key={genre}>
+            <p className="card-genre" key={genre}>
               {genre}
-            </h4>
+            </p>
           ))}
           <div className="d-flex justify-content-between">
             <small>Release date: {props.release_date}</small>
