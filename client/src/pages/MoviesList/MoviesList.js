@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  API_KEY,
-  API_URL,
-  IMAGE_BASE_URL,
-  BACKDROP_SIZE,
-  POSTER_SIZE,
-} from "../../config";
+import { API_KEY, API_URL, IMAGE_BASE_URL, POSTER_SIZE } from "../../config";
 import FourColumnGrid from "../../components/elements/FourColumnGrid/FourColumnGrid";
 import MovieThumbnail from "../../components/elements/MovieThumbnail/MovieThumbnail";
 import ShowMoreBtn from "../../components/elements/ShowMoreBtn/ShowMoreBtn";
@@ -17,51 +11,21 @@ class moviesList extends Component {
   state = {
     movies: [],
     loading: false,
-    currentPage: 0,
+    currentPage: 1,
     totalPages: 0,
-    searchTerm: "",
   };
 
   componentDidMount() {
-    if (localStorage.getItem("movieListState")) {
-      const state = JSON.parse(localStorage.getItem("movieListState"));
-      this.setState({ ...state });
-    } else {
-      this.setState({ loading: true });
-      const endPoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&language-en-US&page=1`;
-      this.fetchItems(endPoint);
-    }
+    this.setState({ loading: true });
+    const endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&page=1`;
+    this.fetchItems(endpoint);
   }
 
-  searchItems = (searchTerm) => {
-    let endpoint = "";
-    this.setState({
-      movies: [],
-      loading: true,
-      searchTerm,
-    });
-
-    if (searchTerm === "") {
-      endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&language-en-US&page=1`;
-    } else {
-      endpoint = `${API_URL}search/movie?api_key=${API_KEY}&query=${searchTerm}`;
-    }
-    this.fetchItems(endpoint);
-  };
-
   loadMoreMovies = () => {
-    let endpoint = "";
     this.setState({ loading: true });
-
-    if ((this.state.searchTerm = "")) {
-      endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&language-en-US&page=${
-        this.state.currentPage + 1
-      }`;
-    } else {
-      endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&language=en-US&query=${
-        this.state.searchTerm
-      }&page=${this.state.currentPage + 1}`;
-    }
+    let endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&page=${
+      this.state.currentPage + 1
+    }`;
     this.fetchItems(endpoint);
   };
 
@@ -69,22 +33,12 @@ class moviesList extends Component {
     fetch(endpoint)
       .then((result) => result.json())
       .then((result) => {
-        this.setState(
-          {
-            movies: [...this.state.movies, ...result.results],
-            loading: false,
-            currentPage: result.page,
-            totalPages: result.total_pages,
-          },
-          () => {
-            if (this.state.searchTerm === "") {
-              localStorage.setItem(
-                "movieListState",
-                JSON.stringify(this.state)
-              );
-            }
-          }
-        );
+        this.setState({
+          movies: [...this.state.movies, ...result.results],
+          loading: false,
+          currentPage: result.page,
+          totalPages: result.total_pages,
+        });
       });
   };
 
@@ -93,10 +47,7 @@ class moviesList extends Component {
       <div className="home">
         <Navbar />
         <div className="movie-grid">
-          <FourColumnGrid
-            header={this.state.searchTerm ? "Search Result" : "All Movies"}
-            loading={this.state.loading}
-          >
+          <FourColumnGrid header={"All Movies"} loading={this.state.loading}>
             {this.state.movies.map((element, i) => {
               return (
                 <MovieThumbnail
@@ -111,7 +62,7 @@ class moviesList extends Component {
           </FourColumnGrid>
           {this.state.currentPage <= this.state.totalPages &&
           !this.state.loading ? (
-            <ShowMoreBtn text={"View More"} onClick={this.loadMoreMovies} />
+            <ShowMoreBtn text={"View More"} Click={this.loadMoreMovies} />
           ) : null}
         </div>
       </div>

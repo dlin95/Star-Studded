@@ -19,7 +19,7 @@ VALUES
 (3, 4),
 (7, 8);
 
-INSERT INTO favourite_movies(user_id, movie_id, poster_path, title, vote_average, release_date) VALUES(1, '661374', 
+INSERT INTO favourites(user_id, movie_id, poster_path, title, vote_average, release_date) VALUES(1, '661374', 
 '/vDGr1YdrlfbU9wxTOdpf3zChmv9.jpg',  
 'Glass Onion: A Knives Out Mystery',
 '7.1',  

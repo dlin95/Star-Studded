@@ -59,7 +59,7 @@ const Navbar = () => {
         <div className="container-fluid">
           <div className="d-flex align-items-center gap-3">
             <a className="navbar-brand" href='/dashboard'>StarStudded</a>
-            <a className="nav-link" href="/favourites">Favourite</a>
+            <a className="nav-link" href="/favourites">Favourites</a>
             <a className="nav-link" href="/watch-list">WatchList</a>
           </div>
           <form className="d-flex" role="search">
