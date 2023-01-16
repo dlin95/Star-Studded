@@ -1,5 +1,5 @@
-.loadmorebtn {
-  background: #16d47b;
+.showmorebtn {
+  background: #d32d3b;
   width: 100%;
   min-height: 50px;
   text-align: center;
@@ -8,12 +8,12 @@
   transition: all 0.3s;
 }
 
-.loadmorebtn p {
+.showmorebtn p {
   font-family: 'Abel', sans-serif;
   font-size:42px;
   padding: 20px;
 }
 
-.loadmorebtn:hover {
+.showmorebtn:hover {
   opacity: 0.8;
 }

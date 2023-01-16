@@ -41,7 +41,7 @@ const Navbar = () => {
     <header>
       <nav className="navbar bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
-          <a className="navbar-brand" href='/'>StarStudded</a>
+            <a className="navbar-brand" href='/'>StarStudded</a>
           <form className="d-flex" role="search">
             <input className="searchBar form-control me-2" type="search" placeholder="Search Movie" aria-label="Search"
               onChange={e => setDebouncedTerm(e.target.value)}

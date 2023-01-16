@@ -19,14 +19,30 @@ class moviesList extends Component {
   };
 
   componentDidMount() {
-    if (localStorage.getItem('homeState')) {
-      const state = JSON.parse(localStorage.getItem('homeState'));
+    if (localStorage.getItem('movieListState')) {
+      const state = JSON.parse(localStorage.getItem('movieListState'));
       this.setState({ ...state });
     } else {
       this.setState({ loading: true });
-      const endPoint = `${API_URL}trending/movie/week?api_key=${API_KEY}`;
+      const endPoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&language-en-US&page=1`;
       this.fetchItems(endPoint);
     }
+  }
+
+  searchItems = (searchTerm) => {
+    let endpoint = '';
+    this.setState({
+      movies: [],
+      loading: true,
+      searchTerm
+    });
+
+    if (searchTerm === ''){
+      endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&language-en-US&page=1`;
+    } else {
+      endpoint = `${API_URL}search/movie?api_key=${API_KEY}&query=${searchTerm}`;
+    }
+    this.fetchItems(endpoint);
   }
 
   loadMoreMovies = () => {
@@ -34,9 +50,9 @@ class moviesList extends Component {
     this.setState({loading: true});
 
     if(this.state.searchTerm = ''){
-      endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}${this.state.currentPage + 1}`;
+      endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&language-en-US&page=${this.state.currentPage + 1}`;
     } else {
-      endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}${this.state.searchTerm}&page=${this.state.currentPage + 1}`;
+      endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&language=en-US&query=${this.state.searchTerm}&page=${this.state.currentPage + 1}`;
     }
     this.fetchItems(endpoint);
   }
@@ -47,10 +63,12 @@ class moviesList extends Component {
       .then(result => {
         this.setState({
           movies: [...this.state.movies, ...result.results],
-          loading: false
+          loading: false,
+          currentPage: result.page,
+          totalPages: result.total_pages
         }, () => {
           if (this.state.searchTerm === '') {
-            localStorage.setItem('homeState', JSON.stringify(this.state));
+            localStorage.setItem('movieListState', JSON.stringify(this.state));
           }
         });
       });
@@ -76,7 +94,7 @@ class moviesList extends Component {
               })}
           </FourColumnGrid>
             {(this.state.currentPage <= this.state.totalPages && !this.state.loading) ?
-              <ShowMoreBtn text={'Show More'} onClick={this.loadMoreMovies} />
+              <ShowMoreBtn text={'View More'} onClick={this.loadMoreMovies} />
               : null
             }
         </div>
