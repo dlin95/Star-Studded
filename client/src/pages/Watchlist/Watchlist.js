@@ -7,7 +7,6 @@ import Navbar from '../../components/elements/Navbar/Navbar';
 // import { Link } from 'react-router-dom';
 import './Watchlist.scss';
 
-
 class moviesList extends Component {
 
   state = {
@@ -24,7 +23,8 @@ class moviesList extends Component {
       this.setState({ ...state });
     } else {
       this.setState({ loading: true });
-      const endPoint = (`/api/watchlist`);
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      const endPoint = (`/api/watchlist/${user.id}`);
       this.fetchItems(endPoint);
     }
   }
