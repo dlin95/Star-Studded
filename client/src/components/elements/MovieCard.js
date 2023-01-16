@@ -11,7 +11,7 @@ const MovieCard = (props) => {
         <h5 className="card-title">{props.title}</h5>
         <div className='d-flex justify-content-between'>
           <small>{props.release_date}</small>
-          <span className="badge rounded-pill text-bg-warning"><i class="fa-solid fa-star me-1"></i>{props.vote_average.toFixed(1)}</span>
+          <span className="badge rounded-pill text-bg-warning"><i className="fa-solid fa-star me-1"></i>{props.vote_average.toFixed(1)}</span>
         </div>
         <div className='mt-2 d-flex justify-content-between align-items-center'>
           <button type="button" className="btn btn-light mt-1"><i className="fa-regular fa-plus me-1"></i>Watchlist</button>
