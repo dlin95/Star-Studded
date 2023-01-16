@@ -11,6 +11,7 @@ import MoviesList from './components/MoviesList/MoviesList';
 import WatchList from './pages/WatchList';
 import Login from './components/Login/Login';
 import Register from './components/Register';
+import Favourites from './components/Favourites/Favourites'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path='/movie-detail' element={<MovieDetail />} />
         <Route path='/movies-list' element={<MoviesList />} />
         <Route path='/watch-list' element={<WatchList />} />
+        <Route path='/favourites' element={<Favourites />} />
         <Route path="*" element={< ErrorPage />}>
         </Route>
       </Routes>
