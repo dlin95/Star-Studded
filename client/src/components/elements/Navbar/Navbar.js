@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import './navbar.scss';
 import axios from "axios";
-import Results from "./Results";
+import Results from "../Results";
 
 
 const Navbar = () => {

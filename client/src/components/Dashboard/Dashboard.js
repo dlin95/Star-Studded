@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import MovieCard from '../components/MovieCard';
-import Navbar from '../components/Navbar';
+import MovieCard from '../elements/MovieCard';
+import Navbar from '../elements/Navbar/Navbar';
+import { fetchData } from '../../utils/fetchData';
 import axios from 'axios';
-
-
-import "../styles/Dashboard.scss";
-import { fetchData } from '../utils/fetchData';
+import "./Dashboard.scss";
 
 const Dashboard = () => {
   const [state, setState] = useState({
