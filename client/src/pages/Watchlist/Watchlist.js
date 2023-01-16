@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../../config';
-import FourColumnGrid from '../elements/FourColumnGrid/FourColumnGrid';
-import MovieThumbnail from '../elements/MovieThumbnail/MovieThumbnail';
-import ShowMoreBtn from '../elements/ShowMoreBtn/ShowMoreBtn';
-import Navbar from '../elements/Navbar/Navbar';
+import FourColumnGrid from '../../components/elements/FourColumnGrid/FourColumnGrid';
+import MovieThumbnail from '../../components/elements/MovieThumbnail/MovieThumbnail';
+import ShowMoreBtn from '../../components/elements/ShowMoreBtn/ShowMoreBtn';
+import Navbar from '../../components/elements/Navbar/Navbar';
 // import { Link } from 'react-router-dom';
-import './Favourites.scss';
+import './Watchlist.scss';
 
 
 class moviesList extends Component {
@@ -19,12 +19,12 @@ class moviesList extends Component {
   };
 
   componentDidMount() {
-    if (localStorage.getItem('Favourites')) {
-      const state = JSON.parse(localStorage.getItem('Favourites'));
+    if (localStorage.getItem('Watchlist')) {
+      const state = JSON.parse(localStorage.getItem('Watchlist'));
       this.setState({ ...state });
     } else {
       this.setState({ loading: true });
-      const endPoint = (`/api/favourites`);
+      const endPoint = (`/api/watchlist`);
       this.fetchItems(endPoint);
     }
   }
@@ -52,7 +52,7 @@ class moviesList extends Component {
           totalPages: result.total_pages
         }, () => {
           if (this.state.searchTerm === '') {
-            localStorage.setItem('Favourites', JSON.stringify(this.state));
+            localStorage.setItem('Watchlist', JSON.stringify(this.state));
           }
         });
       });
@@ -64,7 +64,7 @@ class moviesList extends Component {
         <Navbar />
         <div className='movie-grid'>
           <FourColumnGrid 
-            header={this.state.searchTerm ? 'Search Result' : 'All Movies'}
+            header={this.state.searchTerm ? 'Search Result' : 'Your Watchlist'}
             loading={this.state.loading}
             >
               {this.state.movies.map((element, i) => {

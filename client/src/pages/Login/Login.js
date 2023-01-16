@@ -1,15 +1,7 @@
-<<<<<<< HEAD:client/src/components/Login/Login.js
-import React from 'react';
-import { Link } from 'react-router-dom';
-import "./Login.scss";
-=======
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import "../styles/Login.scss";
 import axios from 'axios';
-
->>>>>>> 6e66c9a74baf44341e5a21272ef7cd5a748a9b3e:client/src/pages/Login.js
-
+import "./Login.scss";
 
 const Login = () => {
   const navigate = useNavigate();
