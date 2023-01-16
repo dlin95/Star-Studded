@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import MovieCard from '../elements/MovieCard';
-import Navbar from '../elements/Navbar/Navbar';
+import MovieCard from '../../components/elements/MovieCard';
+import Navbar from '../../components/elements/Navbar/Navbar';
 import { fetchData } from '../../utils/fetchData';
 import axios from 'axios';
 import "./Dashboard.scss";

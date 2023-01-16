@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../../config';
-import FourColumnGrid from '../elements/FourColumnGrid/FourColumnGrid';
-import MovieThumbnail from '../elements/MovieThumbnail/MovieThumbnail';
-import ShowMoreBtn from '../elements/ShowMoreBtn/ShowMoreBtn';
-import Navbar from '../elements/Navbar/Navbar';
+import FourColumnGrid from '../../components/elements/FourColumnGrid/FourColumnGrid';
+import MovieThumbnail from '../../components/elements/MovieThumbnail/MovieThumbnail';
+import ShowMoreBtn from '../../components/elements/ShowMoreBtn/ShowMoreBtn';
+import Navbar from '../../components/elements/Navbar/Navbar';
 // import { Link } from 'react-router-dom';
 import './Favourites.scss';
 
