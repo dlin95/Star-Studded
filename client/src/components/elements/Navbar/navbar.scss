@@ -8,12 +8,22 @@
   font-size: 30px;
 }
 
+.nav-link {
+  font-size: 18px;
+}
+
 .searchBar {
+  padding: 5px 10px !important;
   border-radius: 50px;
   min-width: 500px;
 }
+
 .searchBtn {
   border-radius: 50px;
+}
+
+.dropdown {
+  font-size: 18px;
 }
 
 .dropdown-toggle {
@@ -25,6 +35,6 @@
   z-index: 100;
   overflow: scroll;
   height: 518px;
-  left: 50%;
+  left: 56%;
   transform: translate(-50%);
 }

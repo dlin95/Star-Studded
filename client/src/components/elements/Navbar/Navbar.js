@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import './navbar.scss';
 import axios from "axios";
 import Results from "../Results";
 
 
 const Navbar = () => {
+  const navigate = useNavigate();
 
   const [term, setTerm] = useState("");
+  const [username, setUsername] = useState("");
   const [debouncedTerm, setDebouncedTerm] = useState(term);
   const [results, setResults] = useState([]);
 
@@ -26,6 +29,20 @@ const Navbar = () => {
     }
   }, [term]);
 
+  useEffect(() => {
+    const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+    if (!currentUser) {
+      signOut();
+    } else {
+      setUsername(`${currentUser.first_name} ${currentUser.last_name}`);
+    }
+  }, []);
+
+  const signOut = () => {
+    sessionStorage.clear();
+    navigate("/");
+    return;
+  };
 
   const fetchData = async (term) => {
     const testURL = `https://api.themoviedb.org/3/search/movie?api_key=ff8bf22061899c44db0f7ebbc6415994&language=en-US&query=${term}&page=1&include_adult=false`;
@@ -41,19 +58,22 @@ const Navbar = () => {
     <header>
       <nav className="navbar bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
-          <a className="navbar-brand" href='/'>StarStudded</a>
+          <div className="d-flex align-items-center gap-3">
+            <a className="navbar-brand" href='/'>StarStudded</a>
+            <a className="nav-link" href="#">Favourite</a>
+            <a className="nav-link" href="watch-list">WatchList</a>
+          </div>
           <form className="d-flex" role="search">
             <input className="searchBar form-control me-2" type="search" placeholder="Search Movie" aria-label="Search"
               onChange={e => setDebouncedTerm(e.target.value)}
               value={debouncedTerm} />
-            {/* <button className="btn btn-primary searchBtn" type="submit" onSearch={term => setTerm(term)} >Search</button> */}
           </form>
           <div className="dropdown me-5">
-            <a className="btn dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              JACK JOHAN
-            </a>
+            <span className="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {username}
+            </span>
             <ul className="dropdown-menu">
-              <li><a className="dropdown-item" href="/logout">SignOut</a></li>
+              <li><span className="dropdown-item" onClick={signOut} >SignOut</span></li>
             </ul>
           </div>
         </div>
