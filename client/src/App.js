@@ -8,7 +8,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import FriendsSuggestions from './pages/FriendsSuggestions';
 import MovieDetail from './pages/MovieDetail';
 import MoviesList from './components/MoviesList/MoviesList';
-import WatchList from './pages/WatchList';
+import WatchList from './components/Watchlist/Watchlist';
 import Login from './components/Login/Login';
 import Register from './components/Register';
 import Favourites from './components/Favourites/Favourites'
