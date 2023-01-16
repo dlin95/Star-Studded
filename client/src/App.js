@@ -25,7 +25,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/friend-suggestion" element={<FriendsSuggestions />} />
-        <Route path="/:movieId" element={<MovieDetails />} />
+        <Route path="/:movieId" element={<MovieDetails />} exact />
         <Route path="/movies-list" element={<MoviesList />} />
         <Route path="/watch-list" element={<WatchList />} />
         <Route path="/favourites" element={<Favourites />} />
