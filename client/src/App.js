@@ -7,12 +7,11 @@ import Home from './components/Home/Home';
 import Dashboard from './pages/Dashboard/Dashboard';
 import FriendsSuggestions from './pages/FriendsSuggestions';
 import MovieDetail from './pages/MovieDetail';
-import MoviesList from './components/MoviesList/MoviesList';
+import MoviesList from './pages/MoviesList/MoviesList';
 import WatchList from './pages/Watchlist/Watchlist';
 import Login from './pages/Login/Login';
 import Register from './pages/Register';
 import Favourites from './pages/Favourites/Favourites'
-import Register from './pages/Register';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
