@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS friends CASCADE;
-DROP TABLE IF EXISTS favourite_movies CASCADE;
+DROP TABLE IF EXISTS favourites CASCADE;
 DROP TABLE IF EXISTS watchlist CASCADE;
 
 CREATE TABLE users (
@@ -17,7 +17,7 @@ CREATE TABLE friends (
   friend_user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE favourite_movies (
+CREATE TABLE favourites (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   movie_id VARCHAR(225) NOT NULL ,
   poster_path TEXT,

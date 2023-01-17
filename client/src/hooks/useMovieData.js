@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { fetchData } from '../utils/fetchData';
-import axios from 'axios';
+import { fetchData } from "../utils/fetchData";
+import axios from "axios";
 
 export default function useApplicationData() {
   const [state, setState] = useState({
@@ -8,30 +8,36 @@ export default function useApplicationData() {
     watchList: [],
     favouriteMovie: [],
     loading: false,
-    value: ''
+    value: "",
   });
 
-  const setWatchList = watchList => {
+  const setWatchList = (watchList) => {
     const newWatchList = [...state.watchList];
     newWatchList.push(watchList);
     setState({ ...state, watchList: newWatchList });
   };
 
-  const setFavouriteMovie = movie => {
+  const setFavouriteMovie = (movie) => {
     const newFavouriteList = [...state.favouriteMovie];
     newFavouriteList.push(movie);
     setState({ ...state, favouriteMovie: newFavouriteList });
   };
 
-  const removeWatchList = id => {
+  const removeWatchList = (id) => {
     const newWatchList = [...state.watchList];
-    newWatchList.splice(newWatchList.findIndex(m => m.movie_id === id), 1);
+    newWatchList.splice(
+      newWatchList.findIndex((m) => m.movie_id === id),
+      1
+    );
     setState({ ...state, watchList: newWatchList });
   };
 
-  const removeFavouriteMovie = id => {
+  const removeFavouriteMovie = (id) => {
     const newFavouriteList = [...state.favouriteMovie];
-    newFavouriteList.splice(newFavouriteList.findIndex(m => m.movie_id === id), 1);
+    newFavouriteList.splice(
+      newFavouriteList.findIndex((m) => m.movie_id === id),
+      1
+    );
     setState({ ...state, favouriteMovie: newFavouriteList });
   };
 
@@ -49,12 +55,19 @@ export default function useApplicationData() {
       setState({ loading: true });
       Promise.all([
         axios.get(`/api/watchlist/${currentUser.id}`),
-        axios.get(`/api/favourite_movies/${currentUser.id}`),
-      ]).then((all) => {
-        setState(prev => ({ ...prev, watchList: all[0].data, favouriteMovie: all[1].data, loading: false }));
-      }).catch((error) => {
-        console.log(error);
-      });
+        axios.get(`/api/favourites/${currentUser.id}`),
+      ])
+        .then((all) => {
+          setState((prev) => ({
+            ...prev,
+            watchList: all[0].data,
+            favouriteMovie: all[1].data,
+            loading: false,
+          }));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
 
     getMovieData();
@@ -66,6 +79,6 @@ export default function useApplicationData() {
     setWatchList,
     setFavouriteMovie,
     removeWatchList,
-    removeFavouriteMovie
+    removeFavouriteMovie,
   };
-};
+}
