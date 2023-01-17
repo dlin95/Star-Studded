@@ -1,44 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MovieCard from '../../components/elements/MovieCard';
 import Navbar from '../../components/elements/Navbar/Navbar';
-import { fetchData } from '../../utils/fetchData';
-import axios from 'axios';
+import useMovieData from "../../hooks/useMovieData";
+
+
 import "./Dashboard.scss";
 
 const Dashboard = () => {
-  const [state, setState] = useState({
-    movies: [],
-    watchList: [],
-    favouriteMovie: [],
-    loading: false,
-    value: ''
-  });
-
-  useEffect(() => {
-    const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
-    const getMovieData = async () => {
-      setState({ loading: true });
-      const query = `https://api.themoviedb.org/3/trending/movie/week?api_key=ff8bf22061899c44db0f7ebbc6415994`;
-      const res = await fetchData(query);
-      const movies = res;
-      setState({ movies, loading: false });
-    };
-
-    const getData = async () => {
-      setState({ loading: true });
-      Promise.all([
-        axios.get(`/api/watchlist/${currentUser.id}`),
-        axios.get(`/api/favourite_movies/${currentUser.id}`),
-      ]).then((all) => {
-        setState(prev => ({ ...prev, watchList: all[0].data, favouriteMovie: all[1].data, loading: false }));
-      }).catch((error) => {
-        console.log(error);
-      });
-    };
-
-    getMovieData();
-    getData();
-  }, []);
+  const {
+    state,
+    setWatchList,
+    setFavouriteMovie,
+    removeWatchList,
+    removeFavouriteMovie
+  } = useMovieData();
 
   const renderMovies = () => {
     let movies = <div className="spinner-border text-danger" role="status" >
@@ -46,69 +21,65 @@ const Dashboard = () => {
     </div >;
     if (state.movies) {
       movies = state.movies.map(movie => {
-        return <MovieCard key={movie.id} {...movie} />;
+        return <MovieCard key={movie.id} setWatchList={setWatchList} setFavouriteMovie={setFavouriteMovie} trending={true} {...movie} {...state} />;
       });
     }
     return movies;
   };
 
-  // const getMovieDetailbyId = async (movie_id) => {
-  //   const query = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=ff8bf22061899c44db0f7ebbc6415994&language=en-US`;
-  //   const res = await axios.get(query);
-  //   return res.data;
-  // };
+  const renderWatchList = () => {
+    let watchlist = <div className="spinner-border text-danger" role="status" >
+      <span className="visually-hidden" > Loading...</span >
+    </div >;
+    if (state.watchList) {
+      watchlist = state.watchList.map(movie => {
+        return <MovieCard key={movie.movie_id} {...movie} watchlist={true} removeWatchList={removeWatchList} />;
+      });
+    };
+    if (watchlist.length <= 0) {
+      watchlist = <div className='text-center'>No Movie Added to watchlist</div>;
+    }
+    return watchlist;
+  };
 
-  // const renderWatchList = () => {
-  //   if (state.watchList) {
-  //     let watchlistPromises = state.watchList.map((record) => {
-  //       return getMovieDetailbyId(record.movie_id).then((res) => { return res; });
-  //     });
-  //     Promise.all(watchlistPromises).then(function(results) {
-  //       let result = results.map(movie => {
-  //         return <MovieCard key={movie.id} {...movie} />;
-  //       });
-  //       return result;
-  //     });
-  //   };
-  // };
-
-  // const renderFavouriteMovies = () => {
-  //   let movies = <div className="spinner-border text-danger" role="status" >
-  //     <span className="visually-hidden" > Loading...</span >
-  //   </div >;
-  //   if (state.movies) {
-  //     movies = state.favouriteMovie.map(movie => {
-  //       // return <MovieCard key={movie.id} {...movie} />;
-  //     });
-  //   }
-  //   return movies;
-  // };
+  const renderFavouriteMovie = () => {
+    let favouriteMovie = <div className="spinner-border text-danger" role="status" >
+      <span className="visually-hidden" > Loading...</span >
+    </div >;
+    if (state.favouriteMovie) {
+      favouriteMovie = state.favouriteMovie.map(movie => {
+        return <MovieCard key={movie.movie_id} {...movie} favourite={true} removeFavouriteMovie={removeFavouriteMovie} />;
+      });
+    };
+    if (favouriteMovie.length <= 0) {
+      favouriteMovie = <div className='text-center'>No Movie Added to favourite</div>;
+    }
+    return favouriteMovie;
+  };
 
   return (
     <div>
       <Navbar />
-      <main className='container text-start mt-5 '>
+      <main className='container text-start mt-5 mb-5 '>
         <div className='heading d-flex justify-content-between align-item-center mt-4 mb-2'>
           <h3>Trending</h3>
-          <a href='/'>View All <i className="fa-solid fa-angles-right ms-1"></i> </a>
+          {/* <a href='/'>View All <i className="fa-solid fa-angles-right ms-1"></i> </a> */}
         </div>
         <div className='movielistContainer'>
           {renderMovies()}
         </div>
-        {/* <div className='heading d-flex justify-content-between align-item-center mt-4 mb-2'>
+        <div className='heading d-flex justify-content-between align-item-center mt-4 mb-2'>
           <h3>Watchlist</h3>
-          <a href='/'>View All <i className="fa-solid fa-angles-right ms-1"></i> </a>
         </div>
         <div className='movielistContainer'>
           {renderWatchList()}
-        </div> */}
-        {/* <div className='heading d-flex justify-content-between align-item-center mt-4 mb-2'>
+        </div>
+        <div className='heading d-flex justify-content-between align-item-center mt-4 mb-2'>
           <h3>Favourite</h3>
-          <a href='/'>View All <i className="fa-solid fa-angles-right ms-1"></i> </a>
         </div>
         <div className='movielistContainer'>
-          {renderMovies()}
-        </div> */}
+          {renderFavouriteMovie()}
+        </div>
 
       </main>
     </div>

@@ -31,9 +31,9 @@ module.exports = (db) => {
   });
 
   // Delete a movie from list of favourite movies
-  router.delete('/favourite_movies/:id/delete', (res, req) => {
-    const movie_id = req.params.movie_id;
-    db.query(`DELETE FROM favourite_movies WHERE movie_id = ${movie_id}`)
+  router.delete('/favourite_movies/:id/delete', (req, res) => {
+    const movie_id = req.params.id;
+    db.query(`DELETE FROM favourite_movies WHERE movie_id = ${movie_id}::varchar`)
       .then((result) => {
         console.log('Movie successfully deleted from list of favourite movies');
         res.json(result.rows[0]);

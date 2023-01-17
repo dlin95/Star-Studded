@@ -32,13 +32,13 @@ const Navbar = () => {
   useEffect(() => {
     const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
     if (!currentUser) {
-      signOut();
+      // signOut();
     } else {
       setUsername(`${currentUser.first_name} ${currentUser.last_name}`);
     }
   }, []);
 
-  const signOut = () => {
+  const handleSignOut = () => {
     sessionStorage.clear();
     navigate("/");
     return;
@@ -48,7 +48,6 @@ const Navbar = () => {
     const testURL = `https://api.themoviedb.org/3/search/movie?api_key=ff8bf22061899c44db0f7ebbc6415994&language=en-US&query=${term}&page=1&include_adult=false`;
     await axios.get(testURL).then(response => {
       setResults([...response.data.results]);
-      console.log(response.data.results);
     });
   };
 
@@ -59,9 +58,9 @@ const Navbar = () => {
       <nav className="navbar bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
           <div className="d-flex align-items-center gap-3">
-            <a className="navbar-brand" href='/'>StarStudded</a>
-            <a className="nav-link" href="#">Favourite</a>
-            <a className="nav-link" href="watch-list">WatchList</a>
+            <a className="navbar-brand" href='/dashboard'>StarStudded</a>
+            <a className="nav-link" href="/favourites">Favourite</a>
+            <a className="nav-link" href="/watch-list">WatchList</a>
           </div>
           <form className="d-flex" role="search">
             <input className="searchBar form-control me-2" type="search" placeholder="Search Movie" aria-label="Search"
@@ -73,7 +72,7 @@ const Navbar = () => {
               {username}
             </span>
             <ul className="dropdown-menu">
-              <li><span className="dropdown-item" onClick={signOut} >SignOut</span></li>
+              <li><span className="dropdown-item" onClick={() => handleSignOut} >SignOut</span></li>
             </ul>
           </div>
         </div>

@@ -2,7 +2,7 @@ import './App.scss';
 import { Routes, Route } from "react-router-dom";
 
 import ErrorPage from './error-page';
-import Main from '../src/pages/Main'
+import Main from '../src/pages/Main';
 import Home from './components/Home/Home';
 import Dashboard from './pages/Dashboard/Dashboard';
 import FriendsSuggestions from './pages/FriendsSuggestions';
@@ -11,7 +11,7 @@ import MoviesList from './pages/MoviesList/MoviesList';
 import WatchList from './pages/Watchlist/Watchlist';
 import Login from './pages/Login/Login';
 import Register from './pages/Register';
-import Favourites from './pages/Favourites/Favourites'
+import Favourites from './pages/Favourites/Favourites';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -39,9 +39,6 @@ function App() {
         newestOnTop={false}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
         theme="light"
       />
     </div >

@@ -23,7 +23,7 @@ class moviesList extends Component {
       this.setState({ ...state });
     } else {
       this.setState({ loading: true });
-      const user = JSON.parse(sessionStorage.getItem('user'));
+      const user = JSON.parse(sessionStorage.getItem('currentUser'));
       const endPoint = (`/api/watchlist/${user.id}`);
       this.fetchItems(endPoint);
     }
@@ -31,22 +31,23 @@ class moviesList extends Component {
 
   // loadMoreMovies = () => {
   //   let endpoint = '';
-  //   this.setState({loading: true});
+  //   this.setState({ loading: true });
 
-  //   if(this.state.searchTerm = ''){
+  //   if (this.state.searchTerm === '') {
   //     endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&language-en-US&page=${this.state.currentPage + 1}`;
   //   } else {
   //     endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&language=en-US&query=${this.state.searchTerm}&page=${this.state.currentPage + 1}`;
   //   }
   //   this.fetchItems(endpoint);
-  // }
+  // };
 
   fetchItems = (endpoint) => {
     fetch(endpoint)
       .then(result => result.json())
       .then(result => {
+        console.log(result);
         this.setState({
-          movies: [...this.state.movies, ...result.results],
+          movies: [...this.state.movies, ...result],
           loading: false,
           currentPage: result.page,
           totalPages: result.total_pages
@@ -63,27 +64,27 @@ class moviesList extends Component {
       <div className='home'>
         <Navbar />
         <div className='movie-grid'>
-          <FourColumnGrid 
+          <FourColumnGrid
             header={this.state.searchTerm ? 'Search Result' : 'Your Watchlist'}
             loading={this.state.loading}
-            >
-              {this.state.movies.map((element, i) => {
-                return <MovieThumbnail
+          >
+            {this.state.movies.map((element, i) => {
+              return <MovieThumbnail
                 key={i}
                 clickable={true}
                 image={`${IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}`}
                 movieId={element.id}
                 movieName={element.original_title}
-                />
-              })}
+              />;
+            })}
           </FourColumnGrid>
-            {(this.state.currentPage <= this.state.totalPages && !this.state.loading) ?
-              <ShowMoreBtn text={'View More'} onClick={this.loadMoreMovies} />
-              : null
-            }
+          {(this.state.currentPage <= this.state.totalPages && !this.state.loading) ?
+            <ShowMoreBtn text={'View More'} onClick={this.loadMoreMovies} />
+            : null
+          }
         </div>
       </div>
-    )
+    );
   }
 }
 
