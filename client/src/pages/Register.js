@@ -28,7 +28,7 @@ const Register = () => {
       "password": password
     };
     return await axios.post('/api/register', user).then((result) => {
-      sessionStorage.setItem("currentUser", result.data.user);
+      sessionStorage.setItem("currentUser", JSON.stringify(result.data));
       navigate("/dashboard");
     }).catch((error) => {
       setError(error.response.data);
