@@ -16,10 +16,11 @@ module.exports = (db) => {
   });
 
   // Add a movie to favourite movies
-  router.post('/favourite_movies/', (req, res) => {
-    const user_id = req.params.user_id;
-    const movie_id = req.params.movie_id;
-    db.query(`INSERT INTO favourite_movies (user_id, movie_id) VALUES (${user_id}, ${movie_id})`)
+  router.post('/favourite_movies', (req, res) => {
+    const newFavouriteList = req.body;
+    const queryString = `INSERT INTO watchlist (user_id, movie_id, poster_path, title, vote_average, release_date) VALUES ($1, $2, $3, $4, $5, $6)  RETURNING *;`;
+    const queryParams = [newFavouriteList.user_id, newFavouriteList.movie_id, newFavouriteList.poster_path, newFavouriteList.title, newFavouriteList.vote_average, newFavouriteList.release_date];
+    db.query(queryString, queryParams)
       .then((result) => {
         console.log('New movie successfully added to list of favourite movies');
         res.json(result.rows[0]);

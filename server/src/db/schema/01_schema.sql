@@ -19,10 +19,18 @@ CREATE TABLE friends (
 
 CREATE TABLE favourite_movies (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  movie_id VARCHAR(225)
+  movie_id VARCHAR(225) NOT NULL ,
+  poster_path TEXT,
+  title VARCHAR(225) NOT NULL,
+  vote_average VARCHAR(225) NOT NULL,
+  release_date DATE NOT NULL
 );
 
 CREATE TABLE watchlist (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  movie_id VARCHAR(225)
+  movie_id VARCHAR(225) NOT NULL,
+  poster_path TEXT,
+  title VARCHAR(225) NOT NULL,
+  vote_average VARCHAR(225) NOT NULL,
+  release_date DATE NOT NULL
 );
