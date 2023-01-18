@@ -9,9 +9,7 @@ module.exports = (db) => {
       if (result.rowCount > 0) {
         return res.status(403).send('Email address already exist');
       }
-    })
-      .catch(error => console.log(error));
-
+    }).catch(error => console.log(error));
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(req.body.password, salt);
     db.query(

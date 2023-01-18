@@ -27,28 +27,30 @@ module.exports = (db) => {
       .then((result) => {
         if (result.rowCount > 0) {
           return res.status(403).send("Movie already exist in watchlist");
+        } else {
+          const queryString = `INSERT INTO watchlist (user_id, movie_id, poster_path, title, vote_average, release_date) VALUES ($1, $2, $3, $4, $5, $6)  RETURNING * ;`;
+          const queryParams = [
+            newWatchList.user_id,
+            newWatchList.movie_id,
+            newWatchList.poster_path,
+            newWatchList.title,
+            newWatchList.vote_average,
+            newWatchList.release_date,
+          ];
+          db.query(queryString, queryParams)
+            .then((result) => {
+              console.log(result);
+              console.log("New movie successfully added to Watchlist");
+              res.json(result.rows[0]);
+            })
+            .catch((err) => {
+              console.log("Error", err);
+            });
         }
       })
       .catch((error) => console.log(error));
 
-    const queryString = `INSERT INTO watchlist (user_id, movie_id, poster_path, title, vote_average, release_date) VALUES ($1, $2, $3, $4, $5, $6)  RETURNING * ;`;
-    const queryParams = [
-      newWatchList.user_id,
-      newWatchList.movie_id,
-      newWatchList.poster_path,
-      newWatchList.title,
-      newWatchList.vote_average,
-      newWatchList.release_date,
-    ];
-    db.query(queryString, queryParams)
-      .then((result) => {
-        console.log(result);
-        console.log("New movie successfully added to Watchlist");
-        res.json(result.rows[0]);
-      })
-      .catch((err) => {
-        console.log("Error", err);
-      });
+
   });
 
   // Delete a movie from the Watchlist

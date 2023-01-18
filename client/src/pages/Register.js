@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../pages/Login/Login.scss";
+import useCurrentUser from '../hooks/useCurrentUser';
 
 const Register = () => {
   const navigate = useNavigate();
+  const { setCurrentUser } = useCurrentUser();
 
   const [error, setError] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -28,8 +30,11 @@ const Register = () => {
       "password": password
     };
     return await axios.post('/api/register', user).then((result) => {
-      sessionStorage.setItem("currentUser", JSON.stringify(result.data));
-      navigate("/dashboard");
+      const currentUser = result.data.user;
+      if (currentUser) {
+        setCurrentUser(currentUser);
+        navigate("/dashboard");
+      }
     }).catch((error) => {
       setError(error.response.data);
     });

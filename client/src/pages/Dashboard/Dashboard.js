@@ -3,6 +3,7 @@ import MovieCard from "../../components/elements/MovieCard";
 import Navbar from "../../components/elements/Navbar/Navbar";
 import useMovieData from "../../hooks/useMovieData";
 
+
 import "./Dashboard.scss";
 
 const Dashboard = () => {
@@ -92,10 +93,11 @@ const Dashboard = () => {
   return (
     <div>
       <Navbar />
-      <main className="container text-start mt-5 mb-5 ">
+
+      <main className="container text-start mt-4 mb-5 ">
         <div className="heading d-flex justify-content-between align-item-center mt-4 mb-2">
           <h3>Trending</h3>
-          <a href='/'>View All <i className="fa-solid fa-angles-right ms-1"></i> </a>
+          {/* <a href='/'>View All <i className="fa-solid fa-angles-right ms-1"></i> </a> */}
         </div>
         <div className="movielistContainer">{renderMovies()}</div>
         <div className="heading d-flex justify-content-between align-item-center mt-4 mb-2">

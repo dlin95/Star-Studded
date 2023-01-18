@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Moment from "moment";
 import "./MovieCard.scss";
 
 const MovieCard = (props) => {
-  const handleAddToWatchList = function (e, movie) {
+  const [disabled, setDisabled] = useState(false);
+  const handleAddToWatchList = function(e, movie) {
     e.preventDefault();
+    setDisabled(true);
     const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
     const watchlist = {
       user_id: currentUser.id,
@@ -24,14 +26,20 @@ const MovieCard = (props) => {
         if (result.status === 200) {
           props.setWatchList(result.data);
         }
+        setDisabled(false);
       })
       .catch((error) => {
         console.log(error);
-        toast.error(error.response.data);
+        if (error.response) {
+          toast.error(error.response.data);
+        } else {
+          toast.error("Fail to add to watchlist");
+        }
+        setDisabled(false);
       });
   };
 
-  const handleAddToFavourite = function (e, movie) {
+  const handleAddToFavourite = function(e, movie) {
     e.preventDefault();
     const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
     const favouriteMovie = {
@@ -106,6 +114,7 @@ const MovieCard = (props) => {
             <button
               type="button"
               className="btn btn-light mt-1"
+              disabled={disabled}
               onClick={(e) => handleAddToWatchList(e, props)}
             >
               <i className="fa-regular fa-plus me-1"></i>Watchlist
@@ -123,7 +132,7 @@ const MovieCard = (props) => {
               className="btn btn-light mt-1 w-100"
               onClick={(e) => handleRemoveWatchList(props.movie_id)}
             >
-              <i className="fa-regular fa-plus me-1"></i>Remove
+              <i className="fa-solid fa-xmark me-1"></i>Remove
             </button>
           </div>
         )}
@@ -134,7 +143,7 @@ const MovieCard = (props) => {
               className="btn btn-light mt-1 w-100"
               onClick={(e) => handleRemoveFavourite(props.movie_id)}
             >
-              <i className="fa-regular fa-plus me-1"></i>Remove
+              <i className="fa-solid fa-xmark me-1"></i>Remove
             </button>
           </div>
         )}
