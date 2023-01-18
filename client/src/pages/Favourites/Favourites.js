@@ -28,18 +28,6 @@ class Favourites extends Component {
     }
   }
 
-  // loadMoreMovies = () => {
-  //   let endpoint = '';
-  //   this.setState({loading: true});
-
-  //   if(this.state.searchTerm = ''){
-  //     endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&language-en-US&page=${this.state.currentPage + 1}`;
-  //   } else {
-  //     endpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&language=en-US&query=${this.state.searchTerm}&page=${this.state.currentPage + 1}`;
-  //   }
-  //   this.fetchItems(endpoint);
-  // }
-
   fetchItems = (endpoint) => {
     fetch(endpoint)
       .then((result) => result.json())

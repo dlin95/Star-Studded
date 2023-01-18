@@ -19,33 +19,12 @@ h5 {
 }
 
 .bigcard {
-  
   padding: 15px;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
-.card {
-  
-  width: 500px;
-  min-width: 180px;
-  border-color: #842029;
-  
-}
-.card-body {
-  justify-content: space-between;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  padding: 8px;
-  background-color: #212529;
-}
-.card-title {
-  margin-top: 5px;
-  font-size: 2em;
-  font-weight: bold;
-  color: $brightRed;
-}
+
 .btn-light {
   background: hsla(0, 0%, 100%, 0.08);
   min-width: 120px;
@@ -58,8 +37,3 @@ h5 {
   width: fit-content;
 }
 
-.fa-heart {
-  position: absolute;
-  top: 20px;
-  right: 10px;
-}

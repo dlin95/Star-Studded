@@ -98,7 +98,7 @@ const MovieCard = (props) => {
   const imageUrl = "https://image.tmdb.org/t/p/w500/" + props.poster_path;
 
   return (
-    <div className="card">
+    <div className="card" id="movieCard">
       <img src={imageUrl} className="card-img-top" alt="..." />
       <div className="card-body">
         <h5 className="card-title">{props.title}</h5>
