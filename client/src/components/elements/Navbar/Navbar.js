@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
-import './navbar.scss';
+import { Link, useNavigate } from "react-router-dom";
+import "./navbar.scss";
 import axios from "axios";
 import Results from "../Results";
 import useCurrentUser from "../../../hooks/useCurrentUser";
-
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -22,14 +21,12 @@ const Navbar = () => {
 
   // submit a new search
   useEffect(() => {
-    if (term !== '') {
+    if (term !== "") {
       fetchData(term);
-    }
-    else {
+    } else {
       clearResults();
     }
   }, [term]);
-
 
   const handleSignOut = () => {
     sessionStorage.clear();
@@ -39,7 +36,7 @@ const Navbar = () => {
 
   const fetchData = async (term) => {
     const testURL = `https://api.themoviedb.org/3/search/movie?api_key=ff8bf22061899c44db0f7ebbc6415994&language=en-US&query=${term}&page=1&include_adult=false`;
-    await axios.get(testURL).then(response => {
+    await axios.get(testURL).then((response) => {
       setResults([...response.data.results]);
     });
   };
@@ -47,7 +44,11 @@ const Navbar = () => {
   const clearResults = () => setResults([]);
 
   const getUserInitial = () => {
-    return <span className="profile-icon rounded-circle me-2">{currentUser.first_name[0] + currentUser.last_name[0]}</span>;
+    return (
+      <span className="profile-icon rounded-circle me-2">
+        {currentUser.first_name[0] + currentUser.last_name[0]}
+      </span>
+    );
   };
 
   return (
@@ -55,30 +56,51 @@ const Navbar = () => {
       <nav className="navbar bg-dark" data-bs-theme="dark">
         <div className="container-fluid navbarContent">
           <div className="d-flex align-items-center">
-            <a className="navbar-brand" href='/dashboard'>StarStudded</a>
+            <a className="navbar-brand" href="/dashboard">
+              StarStudded
+            </a>
           </div>
           <form className="d-flex" role="search">
-            <input className="searchBar form-control me-2" type="search" placeholder="Search Movie" aria-label="Search"
-              onChange={e => setDebouncedTerm(e.target.value)}
-              value={debouncedTerm} />
+            <input
+              className="searchBar form-control me-2"
+              type="search"
+              placeholder="Search Movie"
+              aria-label="Search"
+              onChange={(e) => setDebouncedTerm(e.target.value)}
+              value={debouncedTerm}
+            />
           </form>
           <div className="dropdown-center">
-            <span className="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {getUserInitial()}{currentUser.first_name} {currentUser.last_name}
+            <span
+              className="dropdown-toggle"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {getUserInitial()}
+              {currentUser.first_name} {currentUser.last_name}
             </span>
             <ul className="dropdown-menu">
-              <li><span className="dropdown-item" onClick={handleSignOut} >SignOut</span></li>
+              <li>
+                <span className="dropdown-item" onClick={handleSignOut}>
+                  SignOut
+                </span>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
-      {results.length > 0 && <div className="search-result">
-        <Results results={results} />
-      </div>}
+      {results.length > 0 && (
+        <div className="search-result">
+          <Results results={results} />
+        </div>
+      )}
       <div className="d-flex mt-3 sub-nav">
-        <Link to="/movies-list" className='btn btn-primary btn-nav me-3'>All Movies</Link>
-        <Link to="/watch-list" className='btn btn-primary btn-nav me-3'>Watchlist</Link>
-        <Link to="/favourites" className='btn btn-primary btn-nav me-3'>Favourites</Link>
+        <Link to="/movies-list" className="btn btn-primary btn-nav me-3">
+          View Trending
+        </Link>
+        {/* <Link to="/watch-list" className='btn btn-primary btn-nav me-3'>Watchlist</Link>
+        <Link to="/favourites" className='btn btn-primary btn-nav me-3'>Favourites</Link> */}
       </div>
     </header>
   );

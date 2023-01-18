@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./movieDetails.scss";
+import axios from "axios";
 import Navbar from "./elements/Navbar/Navbar";
 import Actor from "./elements/Actor/Actor";
 import FourColumnGrid from "./elements/FourColumnGrid/FourColumnGrid";
-import axios from "axios";
+import { toast } from "react-toastify";
 import { API_URL, API_KEY } from "../config.js";
 import { useParams } from "react-router-dom";
+import "./movieDetails.scss";
 
 const MovieDetails = () => {
   const [state, setState] = useState({
@@ -14,6 +15,60 @@ const MovieDetails = () => {
     loading: false,
   });
   const { movieId } = useParams();
+  const [disabled, setDisabled] = useState(false);
+
+  const handleAddToWatchList = function (e, movie) {
+    e.preventDefault();
+    setDisabled(true);
+    const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+    const watchlist = {
+      user_id: currentUser.id,
+      movie_id: movie.id,
+      poster_path: movie.poster_path,
+      title: movie.title,
+      vote_average: movie.vote_average,
+      release_date: movie.release_date,
+    };
+
+    return axios
+      .post("/api/watchlist", watchlist)
+      .then((result) => {
+        toast.success("Added successfully to Watchlist");
+        setDisabled(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response) {
+          toast.error(error.response.data);
+        } else {
+          toast.error("Fail to add to watchlist");
+        }
+        setDisabled(false);
+      });
+  };
+
+  const handleAddToFavourite = function (e, movie) {
+    e.preventDefault();
+    const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+    const favouriteMovie = {
+      user_id: currentUser.id,
+      movie_id: movie.id,
+      poster_path: movie.poster_path,
+      title: movie.title,
+      vote_average: movie.vote_average,
+      release_date: movie.release_date,
+    };
+
+    return axios
+      .post("/api/favourites", favouriteMovie)
+      .then((result) => {
+        toast.success("Added successfully to Favourite");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.response.data);
+      });
+  };
 
   const fetchData = async (endpoint) => {
     setState({ loading: true });
@@ -34,7 +89,6 @@ const MovieDetails = () => {
         console.log(error);
       });
   };
-
   useEffect(() => {
     console.log(movieId);
     if (localStorage.getItem(`${movieId}`)) {
@@ -46,7 +100,6 @@ const MovieDetails = () => {
       fetchData(endPoint);
     }
   }, []);
-
   return (
     <>
       <Navbar />
@@ -79,6 +132,20 @@ const MovieDetails = () => {
                     {state.movie.vote_average.toFixed(1)}
                   </span>
                 </div>
+                <div className="mt-2 d-flex justify-content-start align-items-center">
+                  <button
+                    type="button"
+                    className="btn btn-light mt-1 me-4"
+                    disabled={disabled}
+                    onClick={(e) => handleAddToWatchList(e, state.movie)}
+                  >
+                    <i className="fa-regular fa-plus me-1"></i>Watchlist
+                  </button>
+                  <i
+                    className="fa-2x fa-solid fa-heart pointer"
+                    onClick={(e) => handleAddToFavourite(e, state.movie)}
+                  ></i>
+                </div>
               </div>
             </div>
           </main>
@@ -97,5 +164,4 @@ const MovieDetails = () => {
     </>
   );
 };
-
 export default MovieDetails;

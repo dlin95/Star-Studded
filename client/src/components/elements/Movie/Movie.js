@@ -1,6 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 import './Movie.scss';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 export default function Movie(props) {
@@ -9,10 +10,14 @@ export default function Movie(props) {
   });
 
   const imageUrl = "https://image.tmdb.org/t/p/w500/" + props.poster_path;
+  const movieUrl = `/${props.id}`;
+
 
   return (
-    <article className="album">
+    <article className="album"> 
+    <Link to={movieUrl} >
       <img className="album__thumbnail" src={imageUrl} alt="Album" />
+    </Link>
       <div className={albumInfoClass}>
         <div className="album__name">{props.title}</div>
         <div className="album__artist">{new Date(props.release_date).getFullYear()}</div>

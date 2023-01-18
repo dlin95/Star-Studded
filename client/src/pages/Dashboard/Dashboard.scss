@@ -45,6 +45,9 @@ h3 {
   overflow: scroll;
   gap: 25px;
 }
+.movielistContainer::-webkit-scrollbar{
+  display: none
+}
 
 .badge {
   width: fit-content;

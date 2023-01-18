@@ -14,7 +14,7 @@ const Home = () => {
         <section className="layout">
           <h1>Welcome to StarStudded</h1>
           <h3>
-            A neat way to search for and keep track of your favourite movies.
+            A neat way to browse and keep track of your favourite movies.
           </h3>
           <div className="mt-4">
             <Link to="/login" className="btn btn-primary me-4" type="button">
