@@ -4,7 +4,7 @@ import axios from 'axios';
 import "../pages/Login/Login.scss";
 import useCurrentUser from '../hooks/useCurrentUser';
 
-const Register = () => {
+const Register = (props) => {
   const navigate = useNavigate();
   const { setCurrentUser } = useCurrentUser();
 
@@ -32,9 +32,10 @@ const Register = () => {
     return await axios.post('/api/register', user).then((result) => {
       const currentUser = result.data.user;
       if (currentUser) {
-        setCurrentUser(currentUser);
+        props.setCurrentUser(currentUser);
         navigate("/dashboard");
       }
+      // navigate("/dashboard");
     }).catch((error) => {
       setError(error.response.data);
     });

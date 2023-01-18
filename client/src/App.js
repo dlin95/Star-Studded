@@ -26,7 +26,7 @@ export default function App() {
         <Route path="/" element={<Main />} />
         <Route index element={<Home />} />
         <Route path='/login' element={<Login setCurrentUser={setCurrentUser} />} />
-        <Route path='/register' element={<Register />} />
+        <Route path='/register' element={<Register setCurrentUser={setCurrentUser} />} />
         <Route path='/dashboard' element={
           <Protected currentUser={currentUser} setCurrentUser={setCurrentUser}>
             <Dashboard />
