@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './navbar.scss';
 import axios from "axios";
 import Results from "../Results";
+import useCurrentUser from "../../../hooks/useCurrentUser";
 
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { currentUser } = useCurrentUser();
 
   const [term, setTerm] = useState("");
-  const [username, setUsername] = useState("");
   const [debouncedTerm, setDebouncedTerm] = useState(term);
   const [results, setResults] = useState([]);
 
@@ -29,14 +30,6 @@ const Navbar = () => {
     }
   }, [term]);
 
-  useEffect(() => {
-    const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
-    if (!currentUser) {
-      // signOut();
-    } else {
-      setUsername(`${currentUser.first_name} ${currentUser.last_name}`);
-    }
-  }, []);
 
   const handleSignOut = () => {
     sessionStorage.clear();
@@ -53,26 +46,28 @@ const Navbar = () => {
 
   const clearResults = () => setResults([]);
 
+  const getUserInitial = () => {
+    return <span className="profile-icon rounded-circle me-2">{currentUser.first_name[0] + currentUser.last_name[0]}</span>;
+  };
+
   return (
     <header>
       <nav className="navbar bg-dark" data-bs-theme="dark">
-        <div className="container-fluid">
-          <div className="d-flex align-items-center gap-3">
+        <div className="container-fluid navbarContent">
+          <div className="d-flex align-items-center">
             <a className="navbar-brand" href='/dashboard'>StarStudded</a>
-            <a className="nav-link" href="/favourites">Favourites</a>
-            <a className="nav-link" href="/watch-list">WatchList</a>
           </div>
           <form className="d-flex" role="search">
             <input className="searchBar form-control me-2" type="search" placeholder="Search Movie" aria-label="Search"
               onChange={e => setDebouncedTerm(e.target.value)}
               value={debouncedTerm} />
           </form>
-          <div className="dropdown me-5">
+          <div className="dropdown-center">
             <span className="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {username}
+              {getUserInitial()}{currentUser.first_name} {currentUser.last_name}
             </span>
             <ul className="dropdown-menu">
-              <li><span className="dropdown-item" onClick={() => handleSignOut} >SignOut</span></li>
+              <li><span className="dropdown-item" onClick={handleSignOut} >SignOut</span></li>
             </ul>
           </div>
         </div>
@@ -80,6 +75,11 @@ const Navbar = () => {
       {results.length > 0 && <div className="search-result">
         <Results results={results} />
       </div>}
+      <div className="d-flex mt-3 sub-nav">
+        <Link to="/movies-list" className='btn btn-primary btn-nav me-3'>All Movies</Link>
+        <Link to="/watch-list" className='btn btn-primary btn-nav me-3'>Watchlist</Link>
+        <Link to="/favourites" className='btn btn-primary btn-nav me-3'>Favourites</Link>
+      </div>
     </header>
   );
 };

@@ -17,23 +17,33 @@ module.exports = (db) => {
   // Add a movie to favourite movies
   router.post("/favourites", (req, res) => {
     const newFavouriteList = req.body;
-    const queryString = `INSERT INTO favourites (user_id, movie_id, poster_path, title, vote_average, release_date) VALUES ($1, $2, $3, $4, $5, $6)  RETURNING *;`;
-    const queryParams = [
-      newFavouriteList.user_id,
-      newFavouriteList.movie_id,
-      newFavouriteList.poster_path,
-      newFavouriteList.title,
-      newFavouriteList.vote_average,
-      newFavouriteList.release_date,
-    ];
-    db.query(queryString, queryParams)
+    const selectQueryString = `SELECT * FROM favourites WHERE movie_id = $1`;
+    const selectQueryParams = [newFavouriteList.movie_id];
+    db.query(selectQueryString, selectQueryParams)
       .then((result) => {
-        console.log("New movie successfully added to list of favourite movies");
-        res.json(result.rows[0]);
-      })
-      .catch((err) => {
-        console.log("Error", err);
+        if (result.rowCount > 0) {
+          return res.status(403).send("Movie already exist in favourite");
+        } else {
+          const queryString = `INSERT INTO favourites (user_id, movie_id, poster_path, title, vote_average, release_date) VALUES ($1, $2, $3, $4, $5, $6)  RETURNING *;`;
+          const queryParams = [
+            newFavouriteList.user_id,
+            newFavouriteList.movie_id,
+            newFavouriteList.poster_path,
+            newFavouriteList.title,
+            newFavouriteList.vote_average,
+            newFavouriteList.release_date,
+          ];
+          db.query(queryString, queryParams)
+            .then((result) => {
+              console.log("New movie successfully added to list of favourite movies");
+              res.json(result.rows[0]);
+            })
+            .catch((err) => {
+              console.log("Error", err);
+            });
+        }
       });
+
   });
 
   // Delete a movie from list of favourite movies

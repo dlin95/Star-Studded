@@ -2,30 +2,38 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./Login.scss";
+import PropTypes from 'prop-types';
 
-const Login = () => {
+
+const Login = (props) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const loginUser = async (credentials) => {
+    return await axios.post('/api/login', credentials).then((result) => {
+      console.log("login success", result);
+      return result.data;
+    }).catch((error) => {
+      console.log(error);
+      setError(error.response.data);
+    });
+  };
 
   const handleSignIn = async function(e) {
     e.preventDefault();
     const user = {
-      "email": email,
-      "password": password
+      email,
+      password
     };
-
-    return await axios.post('/api/login', user).then((result) => {
-      console.log("login success", result);
-      sessionStorage.setItem("currentUser", JSON.stringify(result.data));
+    const currentUser = await loginUser(user);
+    if (currentUser) {
+      props.setCurrentUser(currentUser);
       navigate("/dashboard");
-    }).catch((error) => {
-      setError(error.response.data);
-    });
-
+    }
   };
+
 
   return (
     <main className='main'>
@@ -50,3 +58,6 @@ const Login = () => {
 };
 
 export default Login;
+Login.propTypes = {
+  setCurrentUser: PropTypes.func.isRequired
+};
